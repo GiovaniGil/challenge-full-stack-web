@@ -1,0 +1,16 @@
+.DS_Store
+node_modules
+/dist
+/coverage
+./edtech-backend/node_modules
+./edtech-frontend/node_modules
+./edtech-frontend/coverage
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

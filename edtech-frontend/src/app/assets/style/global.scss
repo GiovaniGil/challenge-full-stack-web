@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+
+html, body {
+    font-family: 'Roboto', sans-serif;
+    height: 100%;
+    box-sizing: border-box;
+    display: block;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* Set `background-repeat: no-repeat` to all elements and pseudo elements */
+*,
+::before,
+::after {
+    background-repeat: no-repeat;
+    box-sizing: inherit;
+}
+
+/* Inherit text-decoration and vertical align to ::before and ::after pseudo elements */
+::before,
+::after {
+    text-decoration: inherit;
+    vertical-align: inherit;
+}
+
+
+.container { 
+    max-width: 1024px;
+    margin: auto
+}
+
+a:link {
+    text-decoration: none;
+    color: #000000;
+}
+
+a:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #54A3FF
+}
+
+.wrapper {
+    padding: 0px 48px;
+}
+
+.bold { 
+    font-weight: bold !important
+}
+
+$primary: #BBDEFB

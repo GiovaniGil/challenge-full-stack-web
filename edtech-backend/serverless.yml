@@ -1,0 +1,122 @@
+service: edtech-backend
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
+
+provider:
+  stage: ${env:AWS_STAGE}
+  name: aws
+  runtime: nodejs14.x
+  region: ${env:AWS_REGION}
+  memorySize: ${env:AWS_LAMBDA_MEMORY_SIZE}
+  environment:
+    AWS_STAGE: ${self:custom.AWS_STAGE}
+    DB_HOST: ${self:custom.DB_HOST}
+    DB_PORT: ${self:custom.DB_PORT}
+    DB_NAME: ${self:custom.DB_NAME}
+    DB_USERNAME: ${self:custom.DB_USERNAME}
+    DB_PASSWORD: ${self:custom.DB_PASSWORD}
+    DB_POOL_MIN: ${self:custom.DB_POOL_MIN}
+    DB_POOL_MAX: ${self:custom.DB_POOL_MAX}
+
+custom:
+  prune:
+    automatic: true
+    number: 3
+  region: ${self:provider.region}
+  prefix: ${self:provider.stage}_${self:service}
+  DB_NAME: ${env:DB_NAME}
+  DB_USERNAME: ${env:DB_USERNAME}
+  DB_PASSWORD: ${env:DB_PASSWORD}
+  DB_POOL_MIN: ${env:DB_POOL_MIN}
+  DB_POOL_MAX: ${env:DB_POOL_MAX}
+  DB_HOST: ${env:DB_HOST}
+  DB_PORT: ${env:DB_PORT}
+
+functions:
+  getStudentById:
+    handler: src/functions/student/getById.student
+    runtime: nodejs14.x
+    timeout: 30
+    environment:
+      aws_region: ${self:custom.region}
+    events:
+      - http:
+          path: student/{id}
+          method: get
+          cors:
+            origin: "*"
+            headers: "*"
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+  getStudent:
+    handler: src/functions/student/get.student
+    runtime: nodejs14.x
+    timeout: 30
+    environment:
+      aws_region: ${self:custom.region}
+    events:
+      - http:
+          path: student
+          method: get
+          cors:
+            origin: "*"
+            headers: "*"
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+  postStudent:
+    handler: src/functions/student/post.student
+    runtime: nodejs14.x
+    timeout: 30
+    environment:
+      aws_region: ${self:custom.region}
+    events:
+      - http:
+          path: student
+          method: post
+          cors:
+            origin: "*"
+            headers: "*"
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+  putStudent:
+    handler: src/functions/student/put.student
+    runtime: nodejs14.x
+    timeout: 30
+    environment:
+      aws_region: ${self:custom.region}
+    events:
+      - http:
+          path: student/{id}
+          method: put
+          cors:
+            origin: "*"
+            headers: "*"
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+  deleteStudent:
+    handler: src/functions/student/delete.student
+    runtime: nodejs14.x
+    timeout: 30
+    environment:
+      aws_region: ${self:custom.region}
+    events:
+      - http:
+          path: student/{id}
+          method: delete
+          cors:
+            origin: "*"
+            headers: "*"
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
