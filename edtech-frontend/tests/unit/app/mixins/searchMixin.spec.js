@@ -23,7 +23,9 @@ describe('searchMixin.js', () => {
     });
     wrapper.vm.uiMixinErrorDialog = jest.fn()
     wrapper.vm.studentSetDataToList = jest.fn().mockRejectedValue()
-    await wrapper.vm.searchMixinHandleDados()
+
+    const pagination = { page: 1, limit: 10 }
+    await wrapper.vm.searchMixinHandleDados({ pagination })
 
     expect(wrapper.vm.uiMixinErrorDialog).toHaveBeenCalledTimes(1);
     wrapper.destroy();
