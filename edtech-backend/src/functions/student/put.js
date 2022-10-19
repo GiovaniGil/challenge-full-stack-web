@@ -2,26 +2,26 @@ const { tableNameStudent } = require('../../config/tables');
 const {middleware} = require('../../helpers/middleware')
 
 exports.student = async (event, context) => middleware(event, context, async (event, context, error, success) => {
-    try {
-        const {id} = event.pathParameters;
+  try {
+      const {id} = event.pathParameters;
 
-        let { document, email, name } = JSON.parse(event.body)
-                 
-        if (!id) {
-            return error('Id não informado.');
-        }
+      let { email, name } = JSON.parse(event.body)
 
-        const student = { academic_registry: academicRegistry, document , email , name }
+      if (!id) {
+          return error('Id não informado.');
+      }
 
-        await context.db(tableNameStudent).update(student).where('id', id);
+      const student = { email, name }
 
-        let data = await context
-          .db(tableNameStudent)
-          .select('*')
-            .where('id', id).first();
+      await context.db(tableNameStudent).update(student).where('id', id);
 
-        return success({data})
-    } catch (e) {
-        return error(e)
-    }
+      let data = await context
+        .db(tableNameStudent)
+        .select('*')
+          .where('id', id).first();
+
+      return success({data})
+  } catch (e) {
+      return error(e)
+  }
 });
