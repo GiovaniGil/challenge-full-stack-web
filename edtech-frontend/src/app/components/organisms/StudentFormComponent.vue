@@ -97,10 +97,7 @@ export default {
   },
 
   async created() {
-    if (this.isUpdate) {
-      await this.setData({ id: this.id });
-      this.payload = this.studentData;
-    }
+    await this.getStudentData();
   },
 
   methods: {
@@ -108,6 +105,13 @@ export default {
       setAddData: "studentStore/setAddData",
       setData: "studentStore/setData",
     }),
+    
+    async getStudentData() {
+      if (this.isUpdate) {
+        await this.setData({ id: this.id });
+        this.payload = this.studentData;
+      }
+    },
 
     backPage() {
       this.$router.go(-1);

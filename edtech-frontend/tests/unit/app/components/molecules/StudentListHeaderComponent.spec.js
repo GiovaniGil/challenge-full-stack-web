@@ -19,8 +19,7 @@ function factory() {
       $router: {
         push: pushMock,
       },
-      setFilter: jest.fn()
-    }
+    },
   });
 }
 
@@ -28,17 +27,19 @@ describe('StudentListHeaderComponent.vue', () => {
 
   it('emitting event', async () => {
     const wrapper = factory();
+    wrapper.vm.setFilter = jest.fn()
     await wrapper.find('#newStudentButton').trigger('click');
     expect(pushMock).toBeCalledWith({"name": "new-student"});
     wrapper.destroy()
   });
   
-  it('emitting event', async () => {
+  it('emitting event - keyboard', async () => {
     const wrapper = factory();
+    wrapper.vm.setFilter = jest.fn();
     const onSearch = jest.spyOn(wrapper.vm, 'onSearch');
     const element = wrapper.findComponent({ ref: 'inputSearch' })
     element.trigger('keyup.enter');
     expect(onSearch).toHaveBeenCalled();
     wrapper.destroy();
-    });
+  });
 });

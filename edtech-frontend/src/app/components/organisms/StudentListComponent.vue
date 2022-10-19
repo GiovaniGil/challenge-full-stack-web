@@ -42,7 +42,7 @@ export default {
   },
 
   async created() {
-    await this.seachMixinHandleDados({ per_page: this.per_page });
+    await this.searchMixinHandleDados({ per_page: this.per_page });
   },
 };
 </script>

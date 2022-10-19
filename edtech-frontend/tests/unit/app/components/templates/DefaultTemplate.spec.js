@@ -24,4 +24,28 @@ describe('DefaultTemplate.vue', () => {
     expect(wrapper).toBeTruthy();
     wrapper.destroy();
   });
+
+   it('Is a Vue Instance', () => {
+     const wrapper = mount(DefaultTemplate, {
+       vuetify,
+       mocks: {
+         $route: {
+           name: 'test',
+           meta: {
+             pageTitle: 'test',
+           },
+           matched: [],
+         },
+       },
+       stubs: ['router-link', 'router-view'],
+     });
+
+     const activeClass = wrapper.vm.getActiveClass({ name: 'test'})
+     expect(activeClass).toEqual({
+       menuActive: true,
+       bold: true,
+       'arrow-right': true,
+     });
+     wrapper.destroy();
+   });
 });

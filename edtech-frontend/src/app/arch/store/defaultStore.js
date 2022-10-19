@@ -35,9 +35,6 @@ export default (RequestClass) => {
         getCount(state) {
           return state.pagination.count;
         },
-        getListFilter(state) {
-          return state.filters;
-        },
       },
       mutations: {
         setDataToList(state, payload) {
@@ -86,12 +83,13 @@ export default (RequestClass) => {
         setData({ commit }, payload) {
           commit('setLoading', true);
           commit('clearState');
-
+          
           return RequestClass.get(payload?.id)
-            .then(({ data }) => {
+          .then(({ data }) => {                      
               commit('setData', {
                 data: data?.data,
               });
+
               return data;
             })
             .catch((error) => {
@@ -103,21 +101,20 @@ export default (RequestClass) => {
         },
         async setAddData(_, data) {
           if (data?.id) {
-            return await RequestClass.edit(data?.id, data)
+            return RequestClass.edit(data?.id, data)
               .then((data) => data)
               .catch((error) => {
-                console.log(error)
                 throw error;
               });
           }
-          return await RequestClass.save(data)
+          return RequestClass.save(data)
             .then((data) => data)
             .catch((error) => {
               throw error;
             });
         },
         async setRemoveData(_, data) {
-          return await RequestClass.remove(data?.id)
+          return RequestClass.remove(data?.id)
             .then((data) => data)
             .catch((error) => {
               throw error;
@@ -126,26 +123,27 @@ export default (RequestClass) => {
         setDataToList({ commit }, data) {
           commit('setLoading', true);
           return RequestClass.list(data)
-              .then((response) => {
-                const results = response?.data?.data || [];
-                const count = response?.data?.count || 0;
-                const limit = count > 1 ? Math.ceil(count / 10) : 1;
-                const page = data?.page || 1;
+            .then((response) => {
+              const results = response?.data?.data ;
+              const count = response?.data?.count;
+              const limit = response?.data?.limit;
+              const page = response?.data?.page;
 
-                commit('setDataToList', {
-                  data: results,
-                  count,
-                  limit,
-                  page,
-                });
-              })
-              .catch((error) => {
-                throw error;
-              })
-              .finally(() => {
-                commit('setLoading', false);
+              commit('setDataToList', {
+                data: results,
+                count,
+                limit,
+                page,
               });
+            })
+            .catch((error) => {
+              throw error;
+            })
+            .finally(() => {
+              commit('setLoading', false);
+            });
         },
+
         clearState({ commit }) {
           commit('clearState');
         },

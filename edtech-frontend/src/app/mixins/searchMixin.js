@@ -10,7 +10,7 @@ export default {
       setFilter: 'studentStore/setFilter',
     }),
 
-    async seachMixinHandleDados(data) {
+    async searchMixinHandleDados(data) {
       await this.studentSetDataToList(data).catch(async (error) => {
         await this.uiMixinErrorDialog(
           'Oops...',
@@ -19,7 +19,7 @@ export default {
       });
     },
   },
-  // destroyed() {
-  //   this.setFilter();
-  // },
+  destroyed() {
+    this.setFilter();
+  },
 };

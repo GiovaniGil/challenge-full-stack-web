@@ -83,7 +83,6 @@ export default {
   computed: {
     ...mapState({
       studentsList: (state) => state.studentStore.list,
-      pagination: (state) => state.studentStore.pagination,
     }),
   },
 
@@ -97,7 +96,7 @@ export default {
     },
 
     async reloadData() {
-      await this.seachMixinHandleDados();
+      await this.searchMixinHandleDados();
     },
 
     async onDeleteItem(item) {
@@ -113,7 +112,7 @@ export default {
               "Sucesso!",
               "Registro removido com sucesso."
             );
-            this.reloadData();
+            await this.reloadData();
           })
           .catch(async ({ response }) => {
             await this.uiMixinErrorDialog(

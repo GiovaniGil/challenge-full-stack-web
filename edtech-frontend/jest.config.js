@@ -28,18 +28,14 @@ module.exports = {
   coverageReporters: ['text', 'text-summary', 'lcov', 'html'],
 
   collectCoverageFrom: [
-    'src/**/*.{js,vue}',
+    'src/app/**/*.{js,vue}',
     '!**/node_modules/**',
     '!<rootDir>/src/main.js',
     '!<rootDir>/src/plugins/**.js',
     '!src/App.vue',
-    '!src/app/routes.js',
+    '!src/app/arch/router/**.js',
     '!src/main.js',
     '!src/app/routes/**.js',
-  ],
-
-  testMatch: [
-    '**/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)',
   ],
 
   watchPlugins: [

@@ -37,7 +37,7 @@ export default {
     },
 
     onSearch(term) {
-      this.seachMixinHandleDados({ term });
+      this.searchMixinHandleDados({ term });
     },
   },
 };
