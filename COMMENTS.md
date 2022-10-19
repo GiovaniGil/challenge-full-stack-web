@@ -16,7 +16,7 @@ No backend foi utilizado o Node, fornecendo as API's via Serverless (lambda func
 * Vue Router
 * Vuetify
 * Vue the mask
-* Jest* 
+* Jest
 
 ## Backend
 
@@ -27,11 +27,9 @@ No backend foi utilizado o Node, fornecendo as API's via Serverless (lambda func
 
 # O que você melhoraria se tivesse mais tempo
 
-* Finalizaria os testes unitários (só um esboço no estado atual);
-* Paginação (iniciada no back)
-* Injeção dos serviços de requisição de dados
-* Melhoria das validações (back)
+* Injeção dos serviços de requisição de dados;
 * Organização dos commits - ao fim optei por colocar em containers para 'facilitar' porém perdi a rastreabilidade.
+* Caso houvessem mais visões, melhoraria a componentização - realizei para atender ao problema atual do teste.
 
 # Quais requisitos obrigatórios que não foram entregues
 
