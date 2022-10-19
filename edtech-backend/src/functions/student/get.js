@@ -11,7 +11,11 @@ exports.student = async (event, context) => middleware(event, context, async (ev
 
         const query = context.db(tableNameStudent).modify((queryBuilder) => {
             if (term !== undefined) {
-                queryBuilder.where(`${tableNameStudent}.name`, 'Like', `%${term}%`).orWhere(`${tableNameStudent}.email`, 'Like', `%${term}%`)
+                queryBuilder
+                  .where(`${tableNameStudent}.name`, 'Like', `%${term}%`)
+                  .orWhere(`${tableNameStudent}.email`, 'Like', `%${term}%`)
+                  .orWhere(`${tableNameStudent}.document`, 'Like', `%${term}%`)
+                  .orWhere(`${tableNameStudent}.academic_registry`, 'Like', `%${term}%`);
             }
         })
 
@@ -21,12 +25,12 @@ exports.student = async (event, context) => middleware(event, context, async (ev
             .select('*')
             .orderBy(orderBy, orderDirection)
             .modify((queryBuilder) => {
-                if (isPagination) {
-                    queryBuilder.offset((page * limit) - limit).limit(limit)
+                if (isPagination && limit > 0) {
+                  queryBuilder.offset(page * limit - limit).limit(limit);
                 }
             })
 
-        return success({data, count, limit, page})
+        return success({data, count, limit, page })
     } catch (e) {
         return error(e)
     }

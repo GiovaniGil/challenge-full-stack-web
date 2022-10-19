@@ -15,12 +15,12 @@
         <StudentListHeaderComponent />
       </v-card-actions>
     </v-card>
-    <StudentListDataTableComponent />
+    <StudentListDataTableComponent @onPagination="onPagination" :pagination.sync="pagination.pagination"/>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 import { searchMixin, uiMixins } from "@/app/mixins";
 
 export default {
@@ -38,12 +38,20 @@ export default {
   computed: {
     ...mapState({
       loading: (state) => state.studentStore.loading,
+    }),   
+  },
+  
+  methods: {
+    ...mapActions({
+      setPagination: 'studentStore/setPagination'
     }),
+
+    async onPagination(pagination) {
+      pagination = { page: pagination?.page, limit: pagination?.itemsPerPage }   
+      await this.searchMixinHandleDados({ pagination })
+    }
   },
 
-  async created() {
-    await this.searchMixinHandleDados({ per_page: this.per_page });
-  },
 };
 </script>
 

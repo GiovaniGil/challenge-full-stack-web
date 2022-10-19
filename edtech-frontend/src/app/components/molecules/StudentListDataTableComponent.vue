@@ -1,10 +1,14 @@
 <template>
   <v-data-table
     dense
+    :page="pagination.page"
+    :items-per-page="pagination.limit"
+    :server-items-length="pagination.count"
     :headers="headers"
     :items="studentsList"
     :footer-props="footerProps"
     :disable-sort="$vuetify.breakpoint.xsOnly"
+    @update:options="onPagination"
     class="flex-grow-1 d-flex flex-column justify-space-between table-striped"
   >
     <template v-slot:item.actions="{ item }">
@@ -61,7 +65,7 @@ export default {
         {
           text: "E-mail",
           align: "center",
-          sortable: true,
+          sortable: false,
           value: "email",
           width: "20%",
         },
@@ -122,6 +126,9 @@ export default {
           });           
       }
     },
+    onPagination(pagination) {
+      this.$emit('onPagination', pagination)
+    }
   },
 };
 </script>

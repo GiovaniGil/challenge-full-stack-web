@@ -8,7 +8,7 @@ export default (RequestClass) => {
         loading: false,
         pagination: {
           page: 1,
-          limit: 0,
+          limit: 10,
           count: 0,
         },
         filters: {},
@@ -120,9 +120,10 @@ export default (RequestClass) => {
               throw error;
             });
         },
-        setDataToList({ commit }, data) {
+        setDataToList({ commit, state }) {
           commit('setLoading', true);
-          return RequestClass.list(data)
+          
+          return RequestClass.list( { ...state.filters, ...state.pagination})
             .then((response) => {
               const results = response?.data?.data ;
               const count = response?.data?.count;
@@ -135,6 +136,7 @@ export default (RequestClass) => {
                 limit,
                 page,
               });
+              
             })
             .catch((error) => {
               throw error;
