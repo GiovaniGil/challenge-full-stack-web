@@ -5,7 +5,7 @@
   "scripts": {
     "offline": "sls offline --httpPort 3001",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node /usr/src/app/backend/src/config/db/createDB.js && knex --knexfile /usr/src/app/backend/src/config/db/knexfile.js migrate:latest && yarn sls offline start --host 0.0.0.0 --httpPort 3001"
+    "start": "node /usr/src/app/backend/src/config/db/createDB.js && knex --knexfile /usr/src/app/backend/src/config/db/knexfile.js migrate:latest && knex --knexfile /usr/src/app/backend/src/config/db/knexfile.js seed:run && yarn sls offline start --host 0.0.0.0 --httpPort 3001"
   },
   "author": "",
   "dependencies": {

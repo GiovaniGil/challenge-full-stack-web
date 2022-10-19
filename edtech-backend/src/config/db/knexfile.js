@@ -21,6 +21,6 @@ module.exports = {
     directory: __dirname + '/migrations',
   },
   seeds: {
-    directory: __dirname + '/src/config/db/seeds',
+    directory: __dirname + '/seeds',
   },
 };
